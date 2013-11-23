@@ -38,6 +38,6 @@ class DvdServiceImpl implements DvdService {
 
     public String getDvdSummary(String dvdReference) throws 
             InvalidReferenceSyntaxException, DvdNotFoundException {
-        return "";
+        throw new InvalidReferenceSyntaxException();
     }
 }

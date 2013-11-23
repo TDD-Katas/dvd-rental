@@ -29,12 +29,10 @@ public class DvdServiceFixture {
     }
     
     public String retrieveDvdTitle(String reference) {
-        String dvdTitle = "nodvd";
+        String dvdTitle;
         try {
             Dvd dvd = instance.retrieveDvd(reference);
-            if (dvd != null) {
-                dvdTitle = dvd.getTitle();
-            }
+            dvdTitle = dvd.getTitle();
         } catch (InvalidReferenceSyntaxException ex) {
             dvdTitle = asExceptionMessage(ex);
         } catch (DvdNotFoundException ex) {
@@ -45,7 +43,16 @@ public class DvdServiceFixture {
     }
     
     public String getDvdSummary(String reference) {
-        return "ole";
+        String dvdSummary;
+        try {
+            dvdSummary = instance.getDvdSummary(reference);
+        } catch (InvalidReferenceSyntaxException ex) {
+            dvdSummary = asExceptionMessage(ex);
+        } catch (DvdNotFoundException ex) {
+            dvdSummary = asExceptionMessage(ex);
+        }
+        
+        return dvdSummary;
     }
     
     //~~~~~~~~~~ Test helpers

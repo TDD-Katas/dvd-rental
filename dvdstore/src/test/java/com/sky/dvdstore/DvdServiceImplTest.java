@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  *
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
-public class DvdServiceTest {
+public class DvdServiceImplTest {
     public static final String INVALID_REFERENCE_SYNTAX = "INVALID-REFERENCE";
     public static final String NON_EXISTING_DVD = "DVD-EMPTY";
     
@@ -48,6 +48,14 @@ public class DvdServiceTest {
         Dvd retrievedDvd = dvdService.retrieveDvd(existingDvd.getReference());
         
         assertThat(retrievedDvd, equalTo(existingDvd));
+    }
+    
+    @Test(expected = InvalidReferenceSyntaxException.class)
+    public void getting_summary_should_throw_invalid_reference_syntax_exception_if_name_does_not_start_with_dvd() 
+            throws Exception  {
+        DvdService dvdService = new DvdServiceImpl();
+        
+        dvdService.getDvdSummary(INVALID_REFERENCE_SYNTAX);
     }
     
     //~~~~ Test helpers
