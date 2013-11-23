@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:concordion="http://www.concordion.org/2007/concordion">
     <head>
-        <title>Title</title>
+        <title>Dvd Rental Store - Acceptance test</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
@@ -18,16 +18,16 @@
         </ul>
 
         The following DVDs are stored within a test repository [reference in brackets]:
-        <table>
+        <table concordion:execute="addDvdToRepository(#reference,#name,#description)">
             <tr>
-                <th>Reference</th>
-                <th>Name</th>
-                <th>Description</th>
+                <th concordion:set="#reference">Reference</th>
+                <th concordion:set="#name">Name</th>
+                <th concordion:set="#description">Description</th>
             </tr>
             <tr>
                 <td>DVD-TG423</td>
                 <td>Topgun</td>
-                <td>Topgun</td>
+                <td>All action film</td>
             </tr>
             <tr>
                 <td>DVD-DD878</td>
@@ -81,18 +81,18 @@
         </code>
 
         <div class="example">
-            <table>
+            <table concordion:execute="#dvdName = retrieveDvdName(#dvdReference)">
                 <tr>
-                    <th>Input</th>
-                    <th>Expected output</th>
+                    <th concordion:set="#dvdReference">Input</th>
+                    <th concordion:assertEquals="#dvdName">Expected Output</th>
                 </tr>
                 <tr>
                     <td>INVALID-TEXT</td>
-                    <td>Exception, informing the client that DVD reference must begin with DVD-</td>
+                    <td>Exception: Invalid reference syntax, should begin with DVD- </td>
                 </tr>
                 <tr>
                     <td>DVD-999</td>
-                    <td>DvdNotFoundException</td>
+                    <td>Exception: The DVD was not found</td>
                 </tr>
                 <tr>
                     <td>DVD-TG423</td>
@@ -106,10 +106,10 @@
         </code>
 
         <div class="example">
-            <table>
+            <table concordion:execute="#dvdSummary = getDvdSummary(#dvdReference)">
                 <tr>
-                    <th>Input</th>
-                    <th>Expected output</th>
+                    <th concordion:set="#dvdReference">Input</th>
+                    <th concordion:assertEquals="#dvdSummary">Expected output</th>
                 </tr>
                 <tr>
                     <td>INVALID-TEXT</td>
