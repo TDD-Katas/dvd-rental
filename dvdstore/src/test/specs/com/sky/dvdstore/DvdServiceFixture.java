@@ -3,26 +3,29 @@ package com.sky.dvdstore;
 import com.sky.dvdstore.data.Dvd;
 import com.sky.dvdstore.exceptions.DvdNotFoundException;
 import com.sky.dvdstore.exceptions.InvalidReferenceSyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.sky.dvdstore.repository.InMemoryDvdRepository;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
 @RunWith(ConcordionRunner.class)
 public class DvdServiceFixture {
+    InMemoryDvdRepository dvdRepository;
     DvdService instance;
+
+    public DvdServiceFixture() {
+        this.dvdRepository = new InMemoryDvdRepository();
+    }
     
     @Before
     public void setUp() {
-        instance = new DvdServiceImpl();
+        instance = new DvdServiceImpl(dvdRepository);
     }
     
     
     public void addDvdToRepository(String reference, String name, String description) {
-        Logger.getLogger(DvdServiceFixture.class.getName())
-                .log(Level.INFO, "{0},{1},{2}", new Object[]{reference, name, description});
-        
+        Dvd dvd = new Dvd(reference, name, description);
+        dvdRepository.add(dvd);
     }
     
     public String retrieveDvdTitle(String reference) {

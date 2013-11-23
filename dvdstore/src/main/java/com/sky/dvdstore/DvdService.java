@@ -9,8 +9,10 @@ import com.sky.dvdstore.data.Dvd;
 
 public interface DvdService {
 
-	Dvd retrieveDvd(String dvdReference) throws InvalidReferenceSyntaxException,DvdNotFoundException;
+	Dvd retrieveDvd(String dvdReference) 
+                throws InvalidReferenceSyntaxException,DvdNotFoundException;
 
-	String getDvdSummary(String dvdReference) throws InvalidReferenceSyntaxException,DvdNotFoundException;
+	String getDvdSummary(String dvdReference) 
+                throws InvalidReferenceSyntaxException,DvdNotFoundException;
     
 }

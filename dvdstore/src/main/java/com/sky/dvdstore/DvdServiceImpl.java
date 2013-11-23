@@ -28,10 +28,10 @@ class DvdServiceImpl implements DvdService {
         if (!dvdReference.startsWith(REFERENCE_TAG)) {
             throw new InvalidReferenceSyntaxException();
         } else {
-            if (!dvdRepository.contains(dvdReference)) {
-                throw new DvdNotFoundException();
+            if (dvdRepository.contains(dvdReference)) {
+                return dvdRepository.retrieveDvd(dvdReference);
             } else {
-                return null;
+                throw new DvdNotFoundException();
             }
         }
     }
