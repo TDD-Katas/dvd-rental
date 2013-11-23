@@ -15,13 +15,25 @@ import static org.hamcrest.CoreMatchers.equalTo;
  * @author Iulian Ghionoiu <iulian.ghionoiu@exenne.ro>
  */
 public class InMemoryDvdRepositoryTest {
+    public static final String SOME_REFERENCE = "DVD-OLE";
+    
     
     /**
      * Test of contains method, of class InMemoryDvdRepository.
      */
     @Test
-    public void dvd_repository_should_contain_existing_dvd() {
-        String dvdReference = "DVD-OLE"; 
+    public void should_not_contain_missing_dvd() {
+        InMemoryDvdRepository dvdRepository = createEmptyRepository();
+        
+        assertThat(dvdRepository.contains(SOME_REFERENCE), is(false));
+    }
+    
+    /**
+     * Test of contains method, of class InMemoryDvdRepository.
+     */
+    @Test
+    public void should_contain_existing_dvd() {
+        String dvdReference = SOME_REFERENCE; 
         InMemoryDvdRepository dvdRepository = 
                 createRepositoryWithGivenReference(dvdReference);
         
@@ -32,7 +44,7 @@ public class InMemoryDvdRepositoryTest {
      * Test of retrieveDvd method, of class InMemoryDvdRepository.
      */
     @Test
-    public void testRetrieveDvd() {
+    public void should_retrieve_existing_dvd() {
         Dvd existingDvd = createSomeDvd();
         InMemoryDvdRepository dvdRepository = createRepositoryWithExistingDvd(existingDvd);
         
@@ -59,8 +71,12 @@ public class InMemoryDvdRepositoryTest {
     }
 
     protected InMemoryDvdRepository createRepositoryWithExistingDvd(Dvd existingDvd) {
-        InMemoryDvdRepository dvdRepository = new InMemoryDvdRepository();
+        InMemoryDvdRepository dvdRepository = createEmptyRepository();
         dvdRepository.add(existingDvd);
         return dvdRepository;
+    }
+
+    protected InMemoryDvdRepository createEmptyRepository() {
+        return new InMemoryDvdRepository();
     }
 }

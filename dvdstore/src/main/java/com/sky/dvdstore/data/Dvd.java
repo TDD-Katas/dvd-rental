@@ -25,4 +25,28 @@ public class Dvd {
     public String getDescription() {
         return descriprion;
     }
+
+    //~~~~~~~ Dvd comparisons
+    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + (this.reference != null ? this.reference.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Dvd other = (Dvd) obj;
+        if ((this.reference == null) ? (other.reference != null) : !this.reference.equals(other.reference)) {
+            return false;
+        }
+        return true;
+    }
 }
