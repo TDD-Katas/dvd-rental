@@ -5,5 +5,9 @@
 package com.sky.dvdstore.exceptions;
 
 public class DvdNotFoundException extends Exception {
+
+    public DvdNotFoundException() {
+        super("The DVD was not found");
+    }
     
 }
