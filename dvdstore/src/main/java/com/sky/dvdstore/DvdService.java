@@ -3,6 +3,10 @@
  */
 package com.sky.dvdstore;
 
+import com.sky.dvdstore.exceptions.InvalidReferenceSyntaxException;
+import com.sky.dvdstore.exceptions.DvdNotFoundException;
+import com.sky.dvdstore.data.Dvd;
+
 public interface DvdService {
 
 	Dvd retrieveDvd(String dvdReference) throws InvalidReferenceSyntaxException,DvdNotFoundException;

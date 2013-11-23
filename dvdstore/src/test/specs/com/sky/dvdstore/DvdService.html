@@ -81,14 +81,14 @@
         </code>
 
         <div class="example">
-            <table concordion:execute="#dvdName = retrieveDvdName(#dvdReference)">
+            <table concordion:execute="#dvdTitle = retrieveDvdTitle(#dvdReference)">
                 <tr>
                     <th concordion:set="#dvdReference">Input</th>
-                    <th concordion:assertEquals="#dvdName">Expected Output</th>
+                    <th concordion:assertEquals="#dvdTitle">Expected Output</th>
                 </tr>
                 <tr>
                     <td>INVALID-TEXT</td>
-                    <td>Exception: Invalid reference syntax, should begin with DVD- </td>
+                    <td>Exception: Invalid reference syntax, it should begin with DVD </td>
                 </tr>
                 <tr>
                     <td>DVD-999</td>

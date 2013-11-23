@@ -4,6 +4,8 @@
  */
 package com.sky.dvdstore;
 
+import com.sky.dvdstore.exceptions.DvdNotFoundException;
+import com.sky.dvdstore.exceptions.InvalidReferenceSyntaxException;
 import org.junit.Test;
 
 /**
@@ -16,32 +18,9 @@ public class DvdServiceTest {
     @Test(expected = InvalidReferenceSyntaxException.class)
     public void retrieval_should_throw_invalid_reference_syntax_exception_if_name_does_not_start_with_dvd() 
             throws DvdNotFoundException, InvalidReferenceSyntaxException {
-        DvdService dvdService = new MyDvdService();
+        DvdService dvdService = new DvdServiceImpl();
         String reference = REFERENCE_WITHOUT_DVD;
         
         dvdService.retrieveDvd(reference);
-    }
-    
-    
-    
-    //Production code
-    
-    class MyDvdService implements DvdService {
-
-        public Dvd retrieveDvd(String dvdReference) throws 
-                InvalidReferenceSyntaxException, 
-                DvdNotFoundException {
-            if (!dvdReference.startsWith("DVD")) {
-                throw new InvalidReferenceSyntaxException();
-            } else {
-                return null;
-            }
-        }
-
-        public String getDvdSummary(String dvdReference) throws 
-                InvalidReferenceSyntaxException, 
-                DvdNotFoundException {
-            return "";
-        }
     }
 }
