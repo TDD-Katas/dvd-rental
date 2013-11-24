@@ -15,13 +15,12 @@ public class DvdServiceFixture {
 
     public DvdServiceFixture() {
         this.dvdRepository = new InMemoryDvdRepository();
-        
     }
     
     @Before
     public void setUp() {
-        DvdRepository errorCheckingRepo = new ErrorCheckingDvdRepository(dvdRepository);
-        instance = new DvdServiceImpl(errorCheckingRepo);
+        DvdRepository errorCheckingRepository = new ErrorCheckingDvdRepository(dvdRepository);
+        instance = new DvdServiceImpl(errorCheckingRepository);
     }
     
     //~~~~~~~~~~ Mappings
