@@ -9,15 +9,10 @@ import com.sky.dvdstore.data.Dvd;
 import com.sky.dvdstore.exceptions.DvdNotFoundException;
 import com.sky.dvdstore.exceptions.InvalidReferenceSyntaxException;
 import com.sky.dvdstore.repository.DvdRepository;
-import com.sky.dvdstore.repository.InMemoryDvdRepository;
 
 class DvdServiceImpl implements DvdService {
     public static final String REFERENCE_TAG = "DVD";
     private DvdRepository dvdRepository;
-
-    public DvdServiceImpl() {
-        this(new InMemoryDvdRepository());
-    }
 
     public DvdServiceImpl(DvdRepository dvdRepository) {
         this.dvdRepository = dvdRepository;
@@ -25,19 +20,12 @@ class DvdServiceImpl implements DvdService {
     
     public Dvd retrieveDvd(String dvdReference) throws 
             InvalidReferenceSyntaxException, DvdNotFoundException {
-        if (!dvdReference.startsWith(REFERENCE_TAG)) {
-            throw new InvalidReferenceSyntaxException();
-        } else {
-            if (dvdRepository.contains(dvdReference)) {
-                return dvdRepository.retrieveDvd(dvdReference);
-            } else {
-                throw new DvdNotFoundException();
-            }
-        }
+        return dvdRepository.retrieveDvd(dvdReference);
     }
 
     public String getDvdSummary(String dvdReference) throws 
             InvalidReferenceSyntaxException, DvdNotFoundException {
-        throw new InvalidReferenceSyntaxException();
+        Dvd dvd = dvdRepository.retrieveDvd(dvdReference);
+        return "["+dvd.getReference()+"] "+dvd.getTitle()+" - "+dvd.getDescription();
     }
 }

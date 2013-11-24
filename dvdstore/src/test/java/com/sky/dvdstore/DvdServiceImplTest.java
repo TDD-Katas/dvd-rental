@@ -14,6 +14,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -22,22 +23,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 public class DvdServiceImplTest {
     public static final String INVALID_REFERENCE_SYNTAX = "INVALID-REFERENCE";
     public static final String NON_EXISTING_DVD = "DVD-EMPTY";
-    
-    @Test(expected = InvalidReferenceSyntaxException.class)
-    public void retrieval_should_throw_invalid_reference_syntax_exception_if_name_does_not_start_with_dvd() 
-            throws Exception  {
-        DvdService dvdService = new DvdServiceImpl();
-        
-        dvdService.retrieveDvd(INVALID_REFERENCE_SYNTAX);
-    }
-    
-    @Test(expected = DvdNotFoundException.class)
-    public void retrieval_should_throw_dvd_not_found_exception_if_dvd_repository_does_not_contain_reference() 
-            throws Exception  {
-        DvdService dvdService = createServiceWithEmptyRepository();
-        
-        dvdService.retrieveDvd(NON_EXISTING_DVD);
-    }
     
     @Test
     public void retrieval_should_obtain_dvd_from_repository() 
@@ -50,28 +35,46 @@ public class DvdServiceImplTest {
         assertThat(retrievedDvd, equalTo(existingDvd));
     }
     
-    @Test(expected = InvalidReferenceSyntaxException.class)
-    public void getting_summary_should_throw_invalid_reference_syntax_exception_if_name_does_not_start_with_dvd() 
+    @Test
+    public void summary_contains_dvd_reference() 
             throws Exception  {
-        DvdService dvdService = new DvdServiceImpl();
+        Dvd existingDvd = createSomeDvd();
+        DvdService dvdService = createServiceWithExistingDvd(existingDvd);
         
-        dvdService.getDvdSummary(INVALID_REFERENCE_SYNTAX);
+        String summary = dvdService.getDvdSummary(existingDvd.getReference());
+        
+        assertThat(summary.contains(existingDvd.getReference()), is(true));
+    }
+    
+    @Test
+    public void summary_contains_dvd_title() 
+            throws Exception  {
+        Dvd existingDvd = createSomeDvd();
+        DvdService dvdService = createServiceWithExistingDvd(existingDvd);
+        
+        String summary = dvdService.getDvdSummary(existingDvd.getReference());
+        
+        assertThat(summary.contains(existingDvd.getTitle()), is(true));
+    }
+    
+    @Test
+    public void summary_contains_dvd_description() 
+            throws Exception  {
+        Dvd existingDvd = createSomeDvd();
+        DvdService dvdService = createServiceWithExistingDvd(existingDvd);
+        
+        String summary = dvdService.getDvdSummary(existingDvd.getReference());
+        
+        assertThat(summary.contains(existingDvd.getDescription()), is(true));
     }
     
     //~~~~ Test helpers
 
-    protected DvdService createServiceWithEmptyRepository() {
-        DvdRepository emptyRepository = mock(DvdRepository.class);
-        when(emptyRepository.contains(any(String.class))).thenReturn(false);
-        DvdService dvdService = new DvdServiceImpl(emptyRepository);
-        return dvdService;
+    private Dvd createSomeDvd() {
+        return new Dvd("DVD-Ref", "title", "description");
     }
 
-    protected Dvd createSomeDvd() {
-        return new Dvd("DVD-Ref", "test", "test");
-    }
-
-    protected DvdService createServiceWithExistingDvd(Dvd existingDvd) 
+    private DvdService createServiceWithExistingDvd(Dvd existingDvd) 
             throws InvalidReferenceSyntaxException, DvdNotFoundException {
         DvdRepository repository = mock(DvdRepository.class);
         when(repository.contains(existingDvd.getReference())).thenReturn(true);

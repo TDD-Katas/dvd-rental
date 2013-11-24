@@ -1,6 +1,8 @@
 package com.sky.dvdstore;
 
 import com.sky.dvdstore.data.Dvd;
+import com.sky.dvdstore.repository.DvdRepository;
+import com.sky.dvdstore.repository.ErrorCheckingDvdRepository;
 import com.sky.dvdstore.repository.InMemoryDvdRepository;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.Before;
@@ -13,11 +15,13 @@ public class DvdServiceFixture {
 
     public DvdServiceFixture() {
         this.dvdRepository = new InMemoryDvdRepository();
+        
     }
     
     @Before
     public void setUp() {
-        instance = new DvdServiceImpl(dvdRepository);
+        DvdRepository errorCheckingRepo = new ErrorCheckingDvdRepository(dvdRepository);
+        instance = new DvdServiceImpl(errorCheckingRepo);
     }
     
     //~~~~~~~~~~ Mappings
