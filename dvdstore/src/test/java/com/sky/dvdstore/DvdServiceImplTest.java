@@ -71,7 +71,8 @@ public class DvdServiceImplTest {
         return new Dvd("DVD-Ref", "test", "test");
     }
 
-    protected DvdService createServiceWithExistingDvd(Dvd existingDvd) {
+    protected DvdService createServiceWithExistingDvd(Dvd existingDvd) 
+            throws InvalidReferenceSyntaxException, DvdNotFoundException {
         DvdRepository repository = mock(DvdRepository.class);
         when(repository.contains(existingDvd.getReference())).thenReturn(true);
         when(repository.retrieveDvd(existingDvd.getReference())).thenReturn(existingDvd);
