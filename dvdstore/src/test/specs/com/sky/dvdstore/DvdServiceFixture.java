@@ -10,11 +10,11 @@ import org.junit.runner.RunWith;
 
 @RunWith(ConcordionRunner.class)
 public class DvdServiceFixture {
-    InMemoryDvdRepository dvdRepository;
+    DvdRepositoryStub dvdRepository;
     DvdService instance;
 
     public DvdServiceFixture() {
-        this.dvdRepository = new InMemoryDvdRepository();
+        this.dvdRepository = new DvdRepositoryStub();
     }
     
     @Before
@@ -24,11 +24,11 @@ public class DvdServiceFixture {
     }
     
     //~~~~~~~~~~ Mappings
-    
-    public void addDvdToRepository(String reference, String name, String description) {
-        Dvd dvd = new Dvd(reference, name, description);
-        dvdRepository.add(dvd);
+
+    public Dvd retrieveDvdFromRepository(String reference) {
+        return dvdRepository.retrieveDvd(reference);
     }
+    
     
     public String retrieveDvdTitle(String reference) {
         String dvdTitle;

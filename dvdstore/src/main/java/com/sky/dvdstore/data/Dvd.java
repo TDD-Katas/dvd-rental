@@ -6,12 +6,12 @@ package com.sky.dvdstore.data;
 public class Dvd {
     private String reference;
     private String title;
-    private String descriprion;
+    private String description;
 
     public Dvd(String reference, String title, String description) {
         this.reference = reference;
         this.title = title;
-        this.descriprion = description;
+        this.description = description;
     }
 
     public String getReference() {
@@ -23,7 +23,7 @@ public class Dvd {
     }
     
     public String getDescription() {
-        return descriprion;
+        return description;
     }
 
     //~~~~~~~ Dvd comparisons

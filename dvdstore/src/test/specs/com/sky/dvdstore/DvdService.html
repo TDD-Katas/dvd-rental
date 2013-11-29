@@ -18,11 +18,11 @@
         </ul>
 
         The following DVDs are stored within a test repository [reference in brackets]:
-        <table concordion:execute="addDvdToRepository(#reference,#name,#description)">
+        <table concordion:execute="#dvd = retrieveDvdFromRepository(#reference)">
             <tr>
                 <th concordion:set="#reference">Reference</th>
-                <th concordion:set="#name">Name</th>
-                <th concordion:set="#description">Description</th>
+                <th concordion:assertEquals="#dvd.title">Name</th>
+                <th concordion:assertEquals="#dvd.description">Description</th>
             </tr>
             <tr>
                 <td>DVD-TG423</td>
@@ -32,13 +32,15 @@
             <tr>
                 <td>DVD-DD878</td>
                 <td>Dirty Dancing</td>
-                <td>Havana nights ?</td>
+                <td>Nobody leaves baby in the corner</td>
             </tr>
             <tr>
                 <td>DVD-S765</td>
                 <td>Shrek</td>
-                <td>Big green monsters, they're just all the rage these
-                    days...</td>
+                <td>Big green monsters, they're just all the rage these days, what with Hulk, 
+                    Yoda, and that big ugly troll thingy out of the first Harry Potter movie. 
+                    But Shrek, the flatulent swamp-dwelling ogre with a heart of gold 
+                    (well, silver at least), is more than capable of rivalling any of them.</td>
             </tr>
         </table>
 
@@ -121,8 +123,11 @@
                 </tr>
                 <tr>
                     <td>DVD-S765</td>
-                    <td>[DVD-S765] Shrek - Big green monsters, they're just all the rage these
-                        days...</td>
+                    <td>[DVD-S765] Shrek - Big green monsters, they're just all the rage these days, 
+                        what with Hulk, Yoda, and that big ugly troll thingy out of 
+                        the first Harry Potter movie. 
+                        But Shrek, the flatulent swamp-dwelling ogre with a heart of gold 
+                        (well, silver at least), is more than capable of rivalling any of them.</td>
                 </tr>
             </table>
         </div>
