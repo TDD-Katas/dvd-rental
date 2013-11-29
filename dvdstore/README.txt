@@ -40,15 +40,18 @@ TECHNIQUE
 I implemented this exercise using Acceptance TDD. So, I first turned your specifications into acceptance tests using Concordion. (see /src/test/specs/**)
 Concentrating on passing one acceptance test at a time, I wrote unit tests to describe the desired behavior. The tests where written using a mockist style approach.
 After each test passed, I did refactorings in order to remove duplication and improve readability.
+
 The biggest duplication that had to be removed was the one where both "retrieveDvd" and "getDvdSummary" where checking for errors in the input.
 This behavior has been encapsulated into a DvdRepository decorator and the tests that described the behavior where moved accordingly.
 Finally, an integration test was added to cover the bindings between objects.
+
+All code was written under Git version control system, so you can browse the history to see how exactly I had performed the exercise.
 
 OTHER THOUGHTS
 
 As you suggested, I used the provided DvdRepositoryStub tor testing the system. 
 In a normal application I would not do that. Here is why. As the repository stub if part of the test fixtures, you never want to hide its implementation inside a class. The tests should always be as clear as possible.
 They should clearly show the initial state of the system, the action that they are performing and what is the expected state after the action.
-In my acceptance test, to overcome this, I have exposed the DVDs contained inside the stub. This makes the tests more clear.
+In my acceptance test, to overcome this, I have exposed the DVDs contained inside the stub. This made the tests more clear.
 
 
